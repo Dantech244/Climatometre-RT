@@ -366,78 +366,62 @@
             2. VERSION MOBILE (Écrans petits)
             ============================================================ */
             @media screen and (max-width: 980px) {
-                /* 1. On réinitialise tout le conteneur */
-                .conteneur {
-                    display: block !important; /* On casse le Flexbox qui peut causer des chevauchements */
-                    width: 100% !important;
-                    padding: 10px !important;
-                    margin: 0 !important;
-                    height: auto !important;
+                /* 1. ON DÉBLOQUE LE SCROLL ICI */
+                body, html {
+                    overflow-y: auto !important; /* Autorise le scroll vertical */
+                    height: auto !important;     /* Laisse la page grandir selon le contenu */
                     position: relative !important;
                 }
 
-                /* 2. Chaque bloc devient un rectangle simple qui prend toute la largeur */
-                .left-panel, .carte, .right-card, .toolbar {
-                    position: relative !important; /* On annule les 'fixed' ou 'absolute' */
+                .conteneur {
+                    display: block !important; 
                     width: 100% !important;
-                    max-width: 100% !important;
-                    margin: 0 0 20px 0 !important; /* Espacement entre les blocs */
-                    left: auto !important;
-                    top: auto !important;
+                    padding: 10px !important;
+                    height: auto !important;      /* IMPORTANT : pas de hauteur fixe */
+                    overflow: visible !important; /* Laisse le contenu dépasser pour scroller */
+                }
+
+                /* 2. ON GARDE TON CADRAGE ACTUEL */
+                .left-panel, .carte, .right-card, .toolbar {
+                    position: relative !important;
+                    width: 100% !important;
+                    margin-bottom: 20px !important;
                     display: block !important;
                     box-sizing: border-box !important;
                 }
 
-                /* 3. On limite la liste pour qu'elle ne cache pas le reste */
+                /* Ta liste compacte en haut */
                 .left-panel .left-scroll {
                     max-height: 200px !important;
                     overflow-y: auto !important;
                 }
 
-                /* 4. Barre d'outils : On range les boutons proprement */
+                /* Tes boutons bien rangés */
                 .toolbar {
                     display: flex !important;
                     flex-direction: column !important;
                     gap: 10px !important;
-                    height: auto !important;
-                    background: none !important;
                 }
 
-                .toolbar .search-box {
-                    width: 100% !important;
-                    display: flex !important;
-                }
-
-                /* Boutons en 2x2 */
                 .toolbar div:last-child {
                     display: grid !important;
-                    grid-template-columns: 1fr 1fr !important;
+                    grid-template-columns: 1fr 1fr;
                     gap: 8px !important;
                 }
 
-                .toolbar .button {
-                    width: 100% !important;
-                    margin: 0 !important;
-                }
-
-                /* 5. La Carte : On lui donne sa zone dédiée */
+                /* Ta carte bien cadrée */
                 #map {
                     height: 350px !important;
                     width: 100% !important;
-                    z-index: 1 !important; /* Pour qu'elle ne passe pas sous la liste */
                     border-radius: 12px !important;
                 }
 
-                /* 6. La fiche étudiant en bas */
-                .layout {
-                    display: block !important;
-                }
-
+                /* Ta fiche étudiant tout en bas */
                 .right-card {
                     background: #1a1a1a !important;
                     padding: 20px !important;
                     border-radius: 15px !important;
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+                    margin-top: 10px !important;
                 }
             }
 
