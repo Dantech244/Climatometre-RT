@@ -158,25 +158,79 @@ def get_user_by_username(username):
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        # --- 1. RÉCUPÉRATION DES DONNÉES ---
+        # Identifiants de connexion
         username = request.form.get('username')
         password = request.form.get('password')
-        if not username or not password:
-            flash('Identifiant et mot de passe requis')
-            return redirect(url_for('home'))
+        # Identité
+        nom = request.form.get('nom')
+        prenom = request.form.get('prenom')
+        # Résidence Principale
+        ville_p = request.form.get('ville')
+        adresse_p = request.form.get('adresse_precise')
+        # Résidence Secondaire
+        ville_s = request.form.get('ville2')
+        adresse_s = request.form.get('adresse_precise2')
 
-        # create user
-        pw_hash = generate_password_hash(password)
+        # Vérification minimale
+        if not username or not password or not nom or not prenom:
+            flash('Veuillez remplir tous les champs obligatoires.')
+            return redirect(url_for('register'))
+
         conn = get_db_connection()
+        cursor = conn.cursor()
+        
         try:
-            conn.execute('INSERT INTO users (username, password_hash) VALUES (?, ?)', (username, pw_hash))
+            # --- 2. CRÉATION DU COMPTE (Table 'users') ---
+            pw_hash = generate_password_hash(password)
+            cursor.execute("INSERT INTO users (username, password_hash) VALUES (?, ?)", (username, pw_hash))
+            
+            # --- 3. CRÉATION DE L'ÉTUDIANT (Table 'etudiants') ---
+            # On utilise la même logique que ta fonction /ajouter
+            cursor.execute("INSERT INTO etudiants (nom, prenom) VALUES (?, ?)", (nom, prenom))
+            etudiant_id = cursor.lastrowid # On récupère l'ID pour lier les résidences
+            
+            # --- 4. CRÉATION RÉSIDENCE PRINCIPALE (Table 'residences') ---
+            cursor.execute('''
+                INSERT INTO residences (etudiant_id, ville, adresse, type)
+                VALUES (?, ?, ?, 'principale')
+            ''', (etudiant_id, ville_p, adresse_p))
+            primary_res_id = cursor.lastrowid
+            
+            # --- 5. CRÉATION RÉSIDENCE SECONDAIRE (Si ville remplie) ---
+            secondary_res_id = None
+            if ville_s and ville_s.strip():
+                cursor.execute('''
+                    INSERT INTO residences (etudiant_id, ville, adresse, type)
+                    VALUES (?, ?, ?, 'secondaire')
+                ''', (etudiant_id, ville_s, adresse_s))
+                secondary_res_id = cursor.lastrowid
+            
+            # On valide tout dans la base de données
             conn.commit()
+
+            # --- 6. LE DÉCLENCHEUR CARTE (Mise à jour météo et GPS) ---
+            # On appelle le script update_weather comme dans ta fonction /ajouter
+            try:
+                import update_weather 
+                update_weather.update_residence(primary_res_id, ville_p)
+                if secondary_res_id:
+                    update_weather.update_residence(secondary_res_id, ville_s)
+            except Exception as e:
+                print(f"Erreur météo/GPS : {e}")
+                # On ne bloque pas l'inscription si seule la météo rate
+
+            flash('Compte créé avec succès ! Votre point est sur la carte.')
+            return redirect(url_for('login')) 
+
         except Exception as e:
+            conn.rollback()
+            print(f"ERREUR LORS DE L'INSCRIPTION : {e}")
+            flash("Cet identifiant est peut-être déjà utilisé.")
+            return redirect(url_for('register'))
+        finally:
             conn.close()
-            flash('Impossible de créer le compte (identifiant peut-être déjà utilisé)')
-            return redirect(url_for('home'))
-        conn.close()
-        flash('Compte créé. Vous pouvez vous connecter.')
-        return redirect(url_for('home'))
+
     return render_template('creation.html')
 
 
