@@ -366,99 +366,80 @@
             2. VERSION MOBILE (Écrans petits)
             ============================================================ */
             @media screen and (max-width: 980px) {
-                /* 1. On autorise le scroll sur TOUTE la page */
+                /* 1. Reset total pour le mobile */
                 body, html {
-                    overflow-y: auto !important;
-                    height: auto !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    overflow-x: hidden !important; /* Empêche le glissement horizontal */
+                    width: 100%;
                 }
 
                 .conteneur {
                     display: flex !important;
                     flex-direction: column !important;
-                    height: auto !important; /* Crucial pour le scroll */
-                    padding: 10px !important;
-                    gap: 15px !important;
+                    width: 100% !important;
+                    padding: 10px !important; /* Petite marge de sécurité sur les bords */
+                    box-sizing: border-box !important;
+                    height: auto !important;
                 }
 
-                /* 2. Liste des villes : On la rend compacte en haut */
+                /* 2. La liste du haut : On la cadre bien */
                 .left-panel {
                     width: 100% !important;
-                    position: relative !important;
-                    height: auto !important;
-                    max-height: 250px !important; /* Limite la zone de la liste */
-                    margin-bottom: 5px !important;
+                    margin: 0 0 15px 0 !important;
+                    box-sizing: border-box !important;
                 }
 
-                .left-panel .left-scroll {
-                    max-height: 200px !important;
-                    overflow-y: auto !important;
-                }
-
-                /* 3. Barre d'outils : On aligne bien les boutons */
-                .toolbar {
-                    flex-direction: column !important;
-                    height: auto !important;
-                    gap: 12px !important;
-                    padding: 0 !important;
-                }
-
-                /* Barre de recherche et bouton Rechercher */
-                .toolbar .search-box {
-                    display: flex !important;
+                /* 3. La zone Carte + Boutons */
+                .carte {
+                    margin-left: 0 !important;
                     width: 100% !important;
-                    gap: 5px;
+                    display: flex !important;
+                    flex-direction: column !important;
                 }
 
-                /* Grille de boutons (Admin, Ajouter, Infos, Déconnecter) */
-                /* On les met 2 par 2 pour rester propre */
+                /* On s'assure que la barre de recherche et les boutons prennent toute la largeur */
+                .toolbar {
+                    width: 100% !important;
+                    padding: 0 !important;
+                    margin-bottom: 15px !important;
+                    box-sizing: border-box !important;
+                }
+
                 .toolbar div:last-child {
                     display: grid !important;
-                    grid-template-columns: 1fr 1fr;
+                    grid-template-columns: 1fr 1fr; /* 2 colonnes bien nettes */
                     gap: 10px;
                     width: 100%;
                 }
 
-                .toolbar .button {
+                /* 4. LE FIX DE LA CARTE (Cadrage) */
+                #map {
+                    height: 380px !important;
+                    width: 100% !important;
+                    border-radius: 12px !important;
+                    margin: 0 !important;
+                }
+
+                /* 5. La fiche étudiant (Le "fouillis" du bas) */
+                .layout {
                     width: 100% !important;
                     margin: 0 !important;
-                    justify-content: center !important;
-                    padding: 12px 5px !important;
-                }
-
-                /* 4. Carte : On lui redonne sa place centrale */
-                .carte {
-                    width: 100% !important;
-                    margin-left: 0 !important;
-                }
-
-                #map {
-                    height: 350px !important; /* Taille idéale sur écran tel */
-                    width: 100% !important;
-                    border-radius: 15px !important;
-                }
-
-                /* 5. Fiche Étudiant : Elle se met en dessous et on peut scroller pour la voir */
-                .layout {
-                    display: flex !important;
-                    flex-direction: column !important;
-                    height: auto !important;
+                    padding: 0 !important;
                 }
 
                 .right-card {
                     width: 100% !important;
-                    position: relative !important;
-                    margin-top: 20px !important;
-                    height: auto !important;
+                    margin: 20px 0 !important;
                     padding: 20px !important;
-                    background: var(--card-bg-solid) !important;
-                    box-shadow: none !important; /* Évite les ombres bizarres sur petit écran */
+                    box-sizing: border-box !important;
+                    background: #1a1a1a !important; /* Fond bien sombre pour détacher la fiche */
+                    border-radius: 15px !important;
                 }
 
-                /* On cache l'entête doublon si besoin pour gagner de la place */
-                .entete-carte h1 {
-                    font-size: 1.3rem !important;
-                    text-align: left !important;
-                }
+                /* Ajustement des textes de la fiche */
+                .right-card h2 { font-size: 1.4rem; }
+                .right-card p { font-size: 0.9rem; }
             }
 
         </style>
