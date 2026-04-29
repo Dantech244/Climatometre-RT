@@ -365,39 +365,93 @@
             2. VERSION MOBILE (Écrans petits)
             ============================================================ */
             @media screen and (max-width: 980px) {
+                /* 1. On libère le défilement naturel du téléphone */
                 .conteneur {
                     display: flex !important;
                     flex-direction: column !important;
+                    height: auto !important;
+                    padding: 10px !important;
+                    overflow-y: auto !important;
                 }
 
+                /* 2. Liste des étudiants : Compacte comme sur ton image */
                 .left-panel {
                     width: 100% !important;
                     position: relative !important;
+                    margin-bottom: 15px !important;
+                    border-radius: 12px !important;
+                    order: 1; /* Apparaît en premier */
+                }
+
+                .left-panel .left-scroll {
+                    max-height: 200px !important; /* On limite la hauteur pour voir la suite */
+                    overflow-y: auto !important;
+                }
+
+                /* 3. Barre d'outils et boutons : On les place sous la liste */
+                .toolbar {
+                    order: 2;
+                    flex-direction: column !important;
                     height: auto !important;
+                    gap: 10px !important;
+                    background: transparent !important;
+                    padding: 0 !important;
+                    margin-bottom: 20px !important;
                 }
 
+                /* Grille de boutons (Admin, Ajouter, Déconnecter) */
+                .toolbar div:last-child {
+                    display: grid !important;
+                    grid-template-columns: 1fr 1fr; /* 2 colonnes comme sur ton montage */
+                    gap: 8px;
+                    width: 100%;
+                }
+
+                /* Le bouton déconnecter prend toute la largeur sur une nouvelle ligne si besoin ou reste en grille */
+                .toolbar .button {
+                    margin: 0 !important;
+                    justify-content: center;
+                    padding: 12px 5px !important;
+                    font-size: 0.85rem !important;
+                }
+
+                /* 4. Titre et Carte : Exactement sous les boutons */
                 .carte {
-                    margin-left: 0 !important;
+                    order: 3;
                     width: 100% !important;
+                    margin-left: 0 !important;
                 }
 
+                .entete-carte h1 {
+                    font-size: 1.2rem !important;
+                    margin-bottom: 10px !important;
+                }
+
+                #map {
+                    height: 350px !important; /* Hauteur confortable pour mobile */
+                    width: 100% !important;
+                    border-radius: 15px !important;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+                }
+
+                /* 5. Fiche Étudiant : Tout en bas */
                 .layout {
                     flex-direction: column !important;
                 }
 
-                #map {
-                    height: 400px !important;
+                .right-card {
+                    order: 4;
+                    width: 100% !important;
+                    margin-top: 20px !important;
+                    padding: 15px !important;
+                    background: var(--card-bg-solid) !important;
+                    border-radius: 12px !important;
                 }
 
-                .toolbar {
-                    flex-direction: column !important;
-                }
-                
-                .toolbar div {
-                    display: grid !important;
-                    grid-template-columns: 1fr 1fr;
-                    width: 100%;
-                    gap: 5px;
+                /* Masquer la barre de recherche sur mobile si trop encombrant (optionnel) */
+                .search-box {
+                    width: 100% !important;
+                    margin-bottom: 10px;
                 }
             }
 
