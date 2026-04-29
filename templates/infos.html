@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informations - Climatomètre</title>
+    <link rel="icon" href="/static/logo_.png">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #2e2e2e, #1f1f1f);
+            color: #e8f5ee;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+        }
+        .container {
+            max-width: 900px;
+            background: rgba(40, 40, 40, 0.6);
+            backdrop-filter: blur(14px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        h1 { color: #4caf7d; border-bottom: 2px solid #4caf7d; padding-bottom: 10px; }
+        .btn-retour {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #7ed6a5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .btn-retour:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('index') }}" class="button">← Retour à la carte</a>
+        <h1>Informations du Projet</h1>
+        <p>Cette page contiendra bientôt toutes les informations détaillées, la vidéo de présentation et les détails du projet SAE23.</p>
+        
+        </div>
+</body>
+</html>

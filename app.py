@@ -561,6 +561,14 @@ def supprimer(id):
         conn.close()
     return redirect(url_for('index'))
 
+@app.route('/infos')
+def infos():
+    # Si l'utilisateur n'est pas dans la session, on le dégage vers le login
+    if not session.get('user_id'):
+        return redirect(url_for('login')) 
+    
+    # Sinon, on lui montre la page
+    return render_template('infos.html')
 
 @app.route('/api/etudiant/<int:etudiant_id>')
 def api_etudiant(etudiant_id):
@@ -571,9 +579,10 @@ def api_etudiant(etudiant_id):
         conn.close()
         return jsonify({'error': 'Étudiant introuvable'}), 404
 
+    # AJOUT DES COLONNES date_debut et date_fin ICI
     rows = conn.execute('''
-        SELECT r.id, r.ville, r.adresse, r.lat, r.lon, r.type,
-               m.temp, m.description, m.date_releve
+        SELECT r.id, r.ville, r.adresse, r.lat, r.lon, r.type, r.date_debut, r.date_fin,
+                m.temp, m.description, m.date_releve
         FROM residences r
         LEFT JOIN releves_meteo m
           ON m.id = (
@@ -594,6 +603,8 @@ def api_etudiant(etudiant_id):
             'lat': r['lat'],
             'lon': r['lon'],
             'type': r['type'],
+            'date_debut': r['date_debut'], # <-- Nouveau
+            'date_fin': r['date_fin'],     # <-- Nouveau
             'temp': r['temp'],
             'description': r['description'],
             'date_releve': r['date_releve']
@@ -609,3 +620,4 @@ def api_etudiant(etudiant_id):
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+

@@ -58,6 +58,9 @@
 </head>
 <body>
     <div class="conteneur">
+        <a href="{{ url_for('index') }}" class="button" style="background: rgba(100, 100, 100, 0.5); margin-bottom: 20px; display: inline-block; text-decoration: none;">
+            ← Retour à la carte
+        </a>
         <h1>Dashboard Admin</h1>
         
         {% with messages = get_flashed_messages(with_categories=true) %}
