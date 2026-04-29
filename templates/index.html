@@ -366,68 +366,64 @@
             2. VERSION MOBILE (Écrans petits)
             ============================================================ */
             @media screen and (max-width: 980px) {
-                /* 1. On verrouille la largeur pour éviter le décalage à droite */
+                /* 1. On verrouille le défilement vertical et on nettoie les marges */
                 html, body {
                     margin: 0 !important;
                     padding: 0 !important;
                     width: 100% !important;
-                    overflow-x: hidden !important; /* INTERDIT le glissement gauche-droite */
-                    overflow-y: auto !important;   /* AUTORISE le scroll haut-bas */
-                    position: relative;
-                }
-
-                .conteneur {
-                    display: block !important;
-                    width: 100% !important;
-                    padding: 10px !important;
-                    margin: 0 !important;
-                    box-sizing: border-box !important; /* Force le calcul de largeur correct */
-                    height: auto !important;
-                }
-
-                /* 2. On force chaque bloc à se coller à gauche et prendre 100% */
-                .left-panel, .carte, .right-card, .toolbar {
-                    position: relative !important;
-                    width: 100% !important;
-                    left: 0 !important; /* RAMÈNE TOUT À GAUCHE */
-                    margin-left: 0 !important;
-                    margin-right: 0 !important;
-                    margin-bottom: 20px !important;
-                    display: block !important;
-                    box-sizing: border-box !important;
-                }
-
-                /* Ta liste compacte */
-                .left-panel .left-scroll {
-                    max-height: 180px !important;
+                    overflow-x: hidden !important;
                     overflow-y: auto !important;
                 }
 
-                /* 3. On range la toolbar en grille propre */
-                .toolbar {
-                    display: flex !important;
-                    flex-direction: column !important;
-                    gap: 10px !important;
+                .conteneur {
+                    display: block !important; /* On empile tout verticalement */
+                    width: 100% !important;
+                    padding: 10px !important;
+                    box-sizing: border-box !important;
+                }
+
+                /* 2. Éléments du haut (Liste + Boutons) */
+                .left-panel, .toolbar {
+                    width: 100% !important;
+                    position: relative !important;
+                    margin-bottom: 20px !important;
                 }
 
                 .toolbar div:last-child {
                     display: grid !important;
                     grid-template-columns: 1fr 1fr;
-                    gap: 8px !important;
+                    gap: 8px;
                 }
 
-                /* 4. La Carte (bien centrée) */
+                /* 3. LA CARTE (Prend toute la largeur) */
+                .carte {
+                    width: 100% !important;
+                    margin-left: 0 !important;
+                    display: block !important;
+                }
+
                 #map {
                     height: 350px !important;
                     width: 100% !important;
                     border-radius: 12px !important;
                 }
 
-                /* 5. La fiche tout en bas */
+                /* 4. LE FIX : On force la fiche à passer SOUS la carte */
+                .layout {
+                    display: flex !important;
+                    flex-direction: column !important; /* FORCE L'EMPILEMENT VERTICAL */
+                    width: 100% !important;
+                }
+
                 .right-card {
-                    background: #1a1a1a !important;
+                    width: 100% !important; /* Elle prend toute la largeur */
+                    position: relative !important;
+                    margin-top: 20px !important; /* Espace sous la carte */
                     padding: 15px !important;
+                    background: #1a1a1a !important;
                     border-radius: 15px !important;
+                    box-sizing: border-box !important;
+                    display: block !important;
                 }
             }
 
