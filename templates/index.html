@@ -366,69 +366,67 @@
             2. VERSION MOBILE (Écrans petits)
             ============================================================ */
             @media screen and (max-width: 980px) {
-                /* 1. ON LIBÈRE LE SCROLL (La clé est ici) */
+                /* 1. On bloque tout mouvement latéral */
                 html, body {
-                    overflow-x: hidden !important; /* Pas de glisse gauche-droite */
-                    overflow-y: auto !important;   /* SCROLL HAUT-BAS ACTIVÉ */
-                    height: auto !important;       /* La page s'étire selon le contenu */
-                    min-height: 100% !important;
-                    position: relative !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
+                    overflow-x: hidden !important;
+                    width: 100% !important;
+                    position: relative;
+                    margin: 0;
+                    padding: 0;
                 }
 
                 .conteneur {
-                    display: block !important;    /* On empile les blocs */
+                    display: block !important;
                     width: 100% !important;
-                    height: auto !important;      /* Pas de hauteur fixe ! */
-                    padding: 15px !important;
+                    padding: 10px !important;
                     box-sizing: border-box !important;
-                    overflow: visible !important; /* Très important pour voir ce qui dépasse */
                 }
 
-                /* 2. ON CADRE TOUT À GAUCHE (Plus de superposition) */
-                .left-panel, .carte, .layout, .right-card, .toolbar {
-                    position: relative !important;
+                /* 2. On aligne tous les blocs parents */
+                .left-panel, .carte, .layout, .toolbar {
                     width: 100% !important;
-                    left: 0 !important;           /* On plaque tout à gauche */
                     margin-left: 0 !important;
                     margin-right: 0 !important;
-                    margin-bottom: 25px !important; /* Espace entre les éléments */
+                    left: 0 !important;
+                    position: relative !important;
+                    display: block !important;
+                    box-sizing: border-box !important;
+                }
+
+                /* 3. LE FIX DU RECTANGLE (Right Card) */
+                .right-card {
+                    /* On annule les réglages Ordi */
+                    position: relative !important;
+                    top: auto !important;
+                    right: auto !important;
+                    left: 0 !important;
+                    
+                    /* On règle la taille */
+                    width: 100% !important; 
+                    max-width: 100% !important;
+                    margin: 20px 0 !important; /* Espace vertical uniquement */
+                    padding: 15px !important;
+                    
+                    /* On s'assure qu'il reste dans le cadre */
+                    box-sizing: border-box !important;
+                    background: #1a1a1a !important;
+                    border-radius: 12px !important;
                     display: block !important;
                 }
 
-                /* Ta liste du haut */
-                .left-scroll {
-                    max-height: 200px !important;
-                    overflow-y: auto !important;
-                }
-
-                /* 3. TA CARTE (Bien cadrée) */
+                /* 4. On ajuste la carte pour qu'elle ne pousse pas les murs */
                 #map {
-                    height: 320px !important;
+                    height: 350px !important;
                     width: 100% !important;
                     border-radius: 12px !important;
-                    z-index: 1 !important;
                 }
 
-                /* 4. TA FICHE INFO (Compacte et en dessous) */
-                .layout {
-                    display: block !important; 
-                }
-
-                .right-card {
-                    background: #1a1a1a !important;
-                    padding: 15px !important;
-                    border-radius: 15px !important;
-                    width: 100% !important;
-                    box-sizing: border-box !important;
-                }
-
-                /* 5. TES BOUTONS (Grid propre) */
+                /* 5. Boutons en grille */
                 .toolbar div:last-child {
                     display: grid !important;
                     grid-template-columns: 1fr 1fr;
                     gap: 10px;
+                    width: 100%;
                 }
             }
         </style>
