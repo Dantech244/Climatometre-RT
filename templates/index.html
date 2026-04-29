@@ -366,80 +366,79 @@
             2. VERSION MOBILE (Écrans petits)
             ============================================================ */
             @media screen and (max-width: 980px) {
-                /* 1. Reset total pour le mobile */
-                body, html {
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    overflow-x: hidden !important; /* Empêche le glissement horizontal */
-                    width: 100%;
-                }
-
+                /* 1. On réinitialise tout le conteneur */
                 .conteneur {
-                    display: flex !important;
-                    flex-direction: column !important;
+                    display: block !important; /* On casse le Flexbox qui peut causer des chevauchements */
                     width: 100% !important;
-                    padding: 10px !important; /* Petite marge de sécurité sur les bords */
-                    box-sizing: border-box !important;
+                    padding: 10px !important;
+                    margin: 0 !important;
                     height: auto !important;
+                    position: relative !important;
                 }
 
-                /* 2. La liste du haut : On la cadre bien */
-                .left-panel {
+                /* 2. Chaque bloc devient un rectangle simple qui prend toute la largeur */
+                .left-panel, .carte, .right-card, .toolbar {
+                    position: relative !important; /* On annule les 'fixed' ou 'absolute' */
                     width: 100% !important;
-                    margin: 0 0 15px 0 !important;
+                    max-width: 100% !important;
+                    margin: 0 0 20px 0 !important; /* Espacement entre les blocs */
+                    left: auto !important;
+                    top: auto !important;
+                    display: block !important;
                     box-sizing: border-box !important;
                 }
 
-                /* 3. La zone Carte + Boutons */
-                .carte {
-                    margin-left: 0 !important;
-                    width: 100% !important;
+                /* 3. On limite la liste pour qu'elle ne cache pas le reste */
+                .left-panel .left-scroll {
+                    max-height: 200px !important;
+                    overflow-y: auto !important;
+                }
+
+                /* 4. Barre d'outils : On range les boutons proprement */
+                .toolbar {
                     display: flex !important;
                     flex-direction: column !important;
+                    gap: 10px !important;
+                    height: auto !important;
+                    background: none !important;
                 }
 
-                /* On s'assure que la barre de recherche et les boutons prennent toute la largeur */
-                .toolbar {
+                .toolbar .search-box {
                     width: 100% !important;
-                    padding: 0 !important;
-                    margin-bottom: 15px !important;
-                    box-sizing: border-box !important;
+                    display: flex !important;
                 }
 
+                /* Boutons en 2x2 */
                 .toolbar div:last-child {
                     display: grid !important;
-                    grid-template-columns: 1fr 1fr; /* 2 colonnes bien nettes */
-                    gap: 10px;
-                    width: 100%;
+                    grid-template-columns: 1fr 1fr !important;
+                    gap: 8px !important;
                 }
 
-                /* 4. LE FIX DE LA CARTE (Cadrage) */
+                .toolbar .button {
+                    width: 100% !important;
+                    margin: 0 !important;
+                }
+
+                /* 5. La Carte : On lui donne sa zone dédiée */
                 #map {
-                    height: 380px !important;
+                    height: 350px !important;
                     width: 100% !important;
+                    z-index: 1 !important; /* Pour qu'elle ne passe pas sous la liste */
                     border-radius: 12px !important;
-                    margin: 0 !important;
                 }
 
-                /* 5. La fiche étudiant (Le "fouillis" du bas) */
+                /* 6. La fiche étudiant en bas */
                 .layout {
-                    width: 100% !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
+                    display: block !important;
                 }
 
                 .right-card {
-                    width: 100% !important;
-                    margin: 20px 0 !important;
+                    background: #1a1a1a !important;
                     padding: 20px !important;
-                    box-sizing: border-box !important;
-                    background: #1a1a1a !important; /* Fond bien sombre pour détacher la fiche */
                     border-radius: 15px !important;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
                 }
-
-                /* Ajustement des textes de la fiche */
-                .right-card h2 { font-size: 1.4rem; }
-                .right-card p { font-size: 0.9rem; }
             }
 
         </style>
