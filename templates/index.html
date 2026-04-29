@@ -366,67 +366,83 @@
             2. VERSION MOBILE (Écrans petits)
             ============================================================ */
             @media screen and (max-width: 980px) {
-                /* 1. On bloque tout mouvement latéral */
+                /* 1. Reset Cadrage : On empêche tout débordement à droite */
                 html, body {
-                    overflow-x: hidden !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
                     width: 100% !important;
-                    position: relative;
-                    margin: 0;
-                    padding: 0;
+                    overflow-x: hidden !important;
+                    overflow-y: auto !important;
                 }
 
                 .conteneur {
-                    display: block !important;
+                    display: flex !important;
+                    flex-direction: column !important; /* TOUT l'un sous l'autre */
                     width: 100% !important;
                     padding: 10px !important;
                     box-sizing: border-box !important;
+                    height: auto !important;
                 }
 
-                /* 2. On aligne tous les blocs parents */
-                .left-panel, .carte, .layout, .toolbar {
+                /* 2. Liste du haut : Compacte */
+                .left-panel {
                     width: 100% !important;
-                    margin-left: 0 !important;
-                    margin-right: 0 !important;
-                    left: 0 !important;
                     position: relative !important;
-                    display: block !important;
-                    box-sizing: border-box !important;
+                    height: auto !important;
+                    margin-bottom: 15px !important;
                 }
 
-                /* 3. LE FIX DU RECTANGLE (Right Card) */
+                .left-scroll {
+                    max-height: 150px !important; /* Encore plus compact */
+                }
+
+                /* 3. Zone Carte et Titre */
+                .carte {
+                    width: 100% !important;
+                    margin: 0 !important;
+                    display: block !important;
+                }
+
+                #map {
+                    height: 300px !important; /* Taille de carte équilibrée */
+                    width: 100% !important;
+                    border-radius: 12px !important;
+                }
+
+                /* 4. LA FICHE INFO (Réduction de taille) */
+                .layout {
+                    display: flex !important;
+                    flex-direction: column !important; /* Force le passage en dessous */
+                    width: 100% !important;
+                    margin: 0 !important;
+                }
+
                 .right-card {
-                    /* On annule les réglages Ordi */
-                    position: relative !important;
-                    top: auto !important;
-                    right: auto !important;
-                    left: 0 !important;
-                    
-                    /* On règle la taille */
-                    width: 100% !important; 
+                    width: 95% !important; /* Un peu moins large pour respirer */
                     max-width: 100% !important;
-                    margin: 20px 0 !important; /* Espace vertical uniquement */
-                    padding: 15px !important;
-                    
-                    /* On s'assure qu'il reste dans le cadre */
-                    box-sizing: border-box !important;
+                    margin: 15px auto !important; /* Centré avec de l'espace en haut */
+                    padding: 12px !important; /* Padding réduit pour que le rectangle soit plus petit */
                     background: #1a1a1a !important;
                     border-radius: 12px !important;
-                    display: block !important;
+                    box-sizing: border-box !important;
+                    height: auto !important; /* Elle s'adapte au texte, ne prend pas de place vide */
                 }
 
-                /* 4. On ajuste la carte pour qu'elle ne pousse pas les murs */
-                #map {
-                    height: 350px !important;
+                /* On réduit la taille des textes dans la fiche pour gagner de la place */
+                .right-card h2 { font-size: 1.1rem !important; margin-bottom: 5px !important; }
+                .right-card p { font-size: 0.85rem !important; margin: 3px 0 !important; }
+
+                /* 5. Boutons de la toolbar */
+                .toolbar {
                     width: 100% !important;
-                    border-radius: 12px !important;
+                    flex-direction: column !important;
+                    gap: 8px !important;
                 }
 
-                /* 5. Boutons en grille */
                 .toolbar div:last-child {
                     display: grid !important;
                     grid-template-columns: 1fr 1fr;
-                    gap: 10px;
-                    width: 100%;
+                    gap: 8px;
                 }
             }
         </style>
