@@ -366,87 +366,69 @@
             2. VERSION MOBILE (Écrans petits)
             ============================================================ */
             @media screen and (max-width: 980px) {
-                /* 1. On force la page à rester calée à gauche */
+                /* 1. ON LIBÈRE LE SCROLL (La clé est ici) */
                 html, body {
+                    overflow-x: hidden !important; /* Pas de glisse gauche-droite */
+                    overflow-y: auto !important;   /* SCROLL HAUT-BAS ACTIVÉ */
+                    height: auto !important;       /* La page s'étire selon le contenu */
+                    min-height: 100% !important;
+                    position: relative !important;
                     margin: 0 !important;
                     padding: 0 !important;
-                    width: 100% !important;
-                    overflow-x: hidden !important;
-                    background-color: #000 !important; /* Pour éviter les bandes grises sur les côtés */
                 }
 
                 .conteneur {
-                    display: block !important; /* On empile tout proprement */
+                    display: block !important;    /* On empile les blocs */
                     width: 100% !important;
-                    padding: 10px !important;
-                    margin: 0 !important;
+                    height: auto !important;      /* Pas de hauteur fixe ! */
+                    padding: 15px !important;
                     box-sizing: border-box !important;
+                    overflow: visible !important; /* Très important pour voir ce qui dépasse */
                 }
 
-                /* 2. FIX Liste du haut : On annule la superposition */
-                .left-panel {
-                    position: relative !important; /* Elle ne flotte plus au-dessus des autres */
-                    width: 100% !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    margin-bottom: 20px !important;
-                    z-index: 10;
-                }
-
-                .left-scroll {
-                    max-height: 180px !important;
-                }
-
-                /* 3. FIX Cadrage Carte et Titre : On force le "tout à gauche" */
-                .carte {
-                    width: 100% !important;
-                    margin-left: 0 !important; /* On supprime le décalage de l'ordi */
-                    left: 0 !important;
+                /* 2. ON CADRE TOUT À GAUCHE (Plus de superposition) */
+                .left-panel, .carte, .layout, .right-card, .toolbar {
                     position: relative !important;
+                    width: 100% !important;
+                    left: 0 !important;           /* On plaque tout à gauche */
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                    margin-bottom: 25px !important; /* Espace entre les éléments */
+                    display: block !important;
                 }
 
+                /* Ta liste du haut */
+                .left-scroll {
+                    max-height: 200px !important;
+                    overflow-y: auto !important;
+                }
+
+                /* 3. TA CARTE (Bien cadrée) */
                 #map {
                     height: 320px !important;
                     width: 100% !important;
-                    margin: 0 !important;
+                    border-radius: 12px !important;
+                    z-index: 1 !important;
                 }
 
-                /* 4. FIX Fiche Info : On la réduit et on la centre */
+                /* 4. TA FICHE INFO (Compacte et en dessous) */
                 .layout {
-                    display: flex !important;
-                    flex-direction: column !important;
-                    width: 100% !important;
-                    margin: 0 !important;
+                    display: block !important; 
                 }
 
                 .right-card {
-                    width: 100% !important;
-                    max-width: 100% !important;
-                    margin: 20px 0 !important;
-                    padding: 15px !important;
-                    left: 0 !important;
-                    position: relative !important;
                     background: #1a1a1a !important;
-                    box-sizing: border-box !important;
-                    border: 1px solid #333; /* Un petit contour pour la structure */
-                }
-
-                /* On réduit encore un peu les textes pour que ce soit compact */
-                .right-card h2 { font-size: 1.1rem !important; }
-                .right-card p { font-size: 0.8rem !important; margin: 2px 0 !important; }
-
-                /* 5. Boutons : On s'assure qu'ils ne débordent pas à droite */
-                .toolbar {
+                    padding: 15px !important;
+                    border-radius: 15px !important;
                     width: 100% !important;
-                    left: 0 !important;
-                    margin-left: 0 !important;
+                    box-sizing: border-box !important;
                 }
 
+                /* 5. TES BOUTONS (Grid propre) */
                 .toolbar div:last-child {
                     display: grid !important;
-                    grid-template-columns: 1fr 1fr; /* 2 colonnes */
-                    gap: 8px;
-                    width: 100%;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
                 }
             }
         </style>
