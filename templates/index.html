@@ -1,6 +1,8 @@
     <!DOCTYPE html>
     <html lang="fr">
     <head>
+        <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+        <meta name="theme-color" content="#4caf7d">
         <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo_.png') }}">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -318,76 +320,87 @@
                 box-sizing: border-box;
             }
 
-            /* 6. Mobile & Tablette - Le mode Responsive */
+            /* 6. Mobile & Tablette - Optimisation Web App */
             @media (max-width: 980px) {
-                /* On empile les éléments au lieu de les mettre côte à côte */
+                body {
+                    padding: 0;
+                    overflow-x: hidden;
+                }
+
                 .conteneur {
                     display: flex;
                     flex-direction: column;
-                    margin: 0;
-                    padding: 10px;
+                    padding: 5px;
+                    gap: 10px;
                 }
 
-                /* Le panneau de gauche se met en haut, plus besoin d'être "fixed" */
+                /* Panneau gauche : On en fait une petite section repliable ou discrète */
                 .left-panel {
                     position: relative;
                     width: 100%;
-                    left: 0;
-                    top: 0;
-                    margin-bottom: 20px;
-                    z-index: 10;
+                    margin-bottom: 10px;
+                    border-radius: 15px;
                 }
 
                 .left-panel .left-scroll {
-                    max-height: 350px; /* On limite pour ne pas avoir une liste infinie avant la carte */
+                    max-height: 200px; /* Plus petit pour laisser voir la carte */
                 }
 
-                /* La carte et le contenu de droite prennent toute la largeur */
-                .carte {
-                    margin-left: 0;
-                    width: 100%;
-                }
-
-                .layout {
-                    flex-direction: column;
-                }
-
-                #map {
-                    width: 100%; /* La carte prend toute la largeur sur mobile */
-                    height: 400px; /* On réduit un peu la hauteur pour les petits écrans */
-                }
-
-                .alert-info {
-                    width: 100%;
-                }
-
-                /* La fiche étudiante (météo) s'affiche en dessous de la carte */
-                .right-card {
-                    position: relative;
-                    top: 0;
-                    right: 0;
-                    width: 100%;
-                    margin-top: 20px;
-                }
-
-                /* On ajuste la barre d'outils pour qu'elle ne déborde pas */
+                /* Barre d'outils : On empile les boutons proprement */
                 .toolbar {
-                    flex-direction: column;
-                    gap: 15px;
-                    height: auto;
-                    padding: 15px;
+                    flex-direction: column !important;
+                    height: auto !important;
+                    padding: 12px !important;
+                    border-radius: 15px !important;
                 }
 
                 .toolbar .search-box {
+                    width: 100% !important;
+                }
+
+                .toolbar div {
+                    display: grid !important;
+                    grid-template-columns: 1fr 1fr; /* Boutons sur 2 colonnes */
                     width: 100%;
+                    gap: 8px;
+                }
+
+                .toolbar .button {
+                    width: 100%;
+                    justify-content: center;
+                    font-size: 0.9rem;
+                    padding: 10px;
+                }
+
+                /* Carte : On lui donne une forme plus "App" */
+                .carte {
+                    margin-left: 0;
+                    width: 100%;
+                    border-radius: 15px;
+                    overflow: hidden;
+                }
+
+                #map {
+                    height: 60vh; /* Utilise 60% de la hauteur de l'écran mobile */
+                    border-radius: 12px;
+                }
+
+                /* Fiche Étudiant (Météo) : On la transforme en "carte flottante" en bas */
+                .right-card {
+                    width: 100% !important;
+                    margin-top: 10px;
+                    background: var(--card-bg-solid);
+                    border: 1px solid var(--border-color);
+                    padding: 20px !important;
+                    box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+                }
+
+                /* On cache certains éléments moins vitaux pour gagner de la place */
+                .entete-carte h1 {
+                    font-size: 1.4rem;
+                    text-align: center;
                 }
             }
-
-            .right-panel {
-                flex: 1 1 auto;
-                min-width: 0;
-            }
-
 
         </style>
     </head>
