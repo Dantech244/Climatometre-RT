@@ -366,96 +366,115 @@
             2. VERSION MOBILE (Écrans petits)
             ============================================================ */
             /* S'active uniquement si l'écran fait moins de 980px de large (mobiles/tablettes) */
+            /* S'active uniquement si l'écran fait moins de 980px de large (mobiles/tablettes) */
             @media screen and (max-width: 980px) {
                 /* 1. Configuration de la page globale */
                 html, body {
-                    margin: 0 !important;           /* Supprime les bordures extérieures par défaut */
-                    padding: 0 !important;          /* Supprime les espacements intérieurs par défaut */
-                    width: 100% !important;         /* Force la page à faire toute la largeur de l'écran */
-                    overflow-x: hidden !important;  /* Interdit le scroll horizontal (évite que ça bouge de gauche à droite) */
-                    overflow-y: auto !important;    /* Autorise le scroll vertical (haut en bas) pour voir tout le contenu */
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    width: 100% !important;
+                    overflow-x: hidden !important;
+                    overflow-y: auto !important;
+                    /* AJOUT : Force l'alignement du contenu tout à gauche */
+                    display: block !important; 
                 }
 
                 /* Le conteneur principal qui englobe tout ton site */
                 .conteneur {
-                    display: flex !important;           /* Active le mode Flexbox pour aligner les éléments */
-                    flex-direction: column !important;  /* Aligne tous les blocs verticalement (l'un sous l'autre) */
-                    width: 100% !important;             /* Prend 100% de la largeur disponible */
-                    padding: 5px !important;           /* Ajoute une petite marge interne pour que rien ne touche les bords */
-                    box-sizing: border-box !important;  /* Inclut le padding dans le calcul de la largeur (évite les débordements) */
-                    height: auto !important;            /* La hauteur s'adapte automatiquement au contenu */
+                    display: flex !important;
+                    flex-direction: column !important;
+                    width: 100% !important;
+                    /* MODIFICATION : Réduit le padding gauche pour coller au bord */
+                    padding: 10px 5px 10px 5px !important; 
+                    box-sizing: border-box !important;
+                    height: auto !important;
+                    /* AJOUT : Annule tout centrage automatique */
+                    margin: 0 !important; 
                 }
 
-                /* 2. Le panneau de gauche (qui devient le panneau du haut sur mobile) */
+                /* 2. Le panneau de gauche (liste des noms) */
                 .left-panel {
-                    width: 100% !important;             /* Prend toute la largeur sur mobile */
-                    position: relative !important;      /* Annule le mode "fixé" de l'ordi pour qu'il suive le scroll */
-                    height: auto !important;            /* Hauteur automatique selon le nombre de noms */
-                    margin-bottom: 25px !important;     /* Ajoute un espace sous la liste avant l'élément suivant */
+                    width: 100% !important;
+                    position: relative !important;
+                    /* AJOUT : Force le collage au bord gauche */
+                    left: 0 !important;
+                    margin-left: 0 !important; 
+                    height: auto !important;
+                    margin-bottom: 15px !important;
                 }
 
-                /* La zone de défilement à l'intérieur de la liste des noms */
+                /* La zone de défilement à l'intérieur de la liste */
                 .left-scroll {
-                    max-height: 125px !important;       /* Limite la hauteur de la liste pour ne pas cacher la carte */
-                    overflow-y: auto !important;        /* Si la liste est trop longue, on peut scroller dedans */
+                    max-height: 150px !important;
+                    overflow-y: auto !important;
                 }
 
                 /* 3. Le bloc qui contient la carte */
                 .carte {
-                    width: 100% !important;             /* La zone de la carte prend toute la largeur */
-                    margin: 0 !important;               /* Supprime les marges de la version ordi */
-                    display: block !important;          /* S'affiche comme un bloc indépendant */
+                    width: 100% !important;
+                    /* MODIFICATION : Force la marge à zéro à gauche */
+                    margin: 0 !important; 
+                    left: 0 !important;
+                    display: block !important;
+                    position: relative !important;
                 }
 
                 /* L'élément spécifique de la carte Leaflet */
                 #map {
-                    height: 350px !important;           /* Fixe la hauteur de la carte à une taille raisonnable pour un doigt */
-                    width: 100% !important;             /* Prend toute la largeur du téléphone */
-                    border-radius: 12px !important;     /* Arrondit les angles pour un look plus moderne */
+                    height: 300px !important;
+                    width: 100% !important;
+                    border-radius: 12px !important;
                 }
 
                 /* 4. La structure de la fiche d'information étudiant */
                 .layout {
-                    display: flex !important;           /* Active le flex pour le contenu du bas */
-                    flex-direction: column !important;  /* Force les infos à se mettre sous la carte */
-                    width: 100% !important;             /* Prend toute la largeur */
-                    margin: 0 !important;               /* Reset des marges */
+                    display: flex !important;
+                    flex-direction: column !important;
+                    width: 100% !important;
+                    /* AJOUT : Assure que le bloc ne se décale pas à droite */
+                    margin-left: 0 !important; 
+                    padding-left: 0 !important;
                 }
 
                 /* Le rectangle noir avec les notes et infos */
                 .right-card {
-                    width: 100% !important;              /* Un peu moins que 100% pour ne pas coller aux bords */
-                    max-width: 100% !important;         /* Sécurité pour ne jamais dépasser l'écran */
-                    margin: 15px auto !important;       /* Centre le rectangle horizontalement avec de l'espace en haut/bas */
-                    padding: 12px !important;           /* Espace entre le texte et le bord du rectangle */
-                    background: #1a1a1a !important;     /* Couleur de fond sombre */
-                    border-radius: 12px !important;     /* Coins arrondis */
-                    box-sizing: border-box !important;  /* Garantit que le padding ne fait pas déborder le rectangle */
-                    height: auto !important;            /* La hauteur s'adapte au texte à l'intérieur */
+                    /* MODIFICATION : Augmente la largeur et supprime le 'auto' qui centrait le bloc */
+                    width: 98% !important; 
+                    max-width: 100% !important;
+                    margin: 15px 0 !important; /* 0 à gauche et à droite pour ne pas centrer */
+                    left: 0 !important;
+                    position: relative !important;
+                    padding: 12px !important;
+                    background: #1a1a1a !important;
+                    border-radius: 12px !important;
+                    box-sizing: border-box !important;
+                    height: auto !important;
                 }
 
                 /* Style des textes à l'intérieur de la fiche info */
                 .right-card h2 { 
-                    font-size: 1.1rem !important;       /* Réduit la taille du nom de l'étudiant */
-                    margin-bottom: 5px !important;      /* Espace sous le nom */
+                    font-size: 1.1rem !important;
+                    margin-bottom: 5px !important;
                 }
                 .right-card p { 
-                    font-size: 0.85rem !important;      /* Réduit la taille des notes/infos */
-                    margin: 3px 0 !important;           /* Resserre les lignes pour que ce soit moins haut */
+                    font-size: 0.85rem !important;
+                    margin: 3px 0 !important;
                 }
 
                 /* 5. La barre d'outils (Recherche, boutons Admin, etc.) */
                 .toolbar {
-                    width: 80% !important;             /* Prend toute la largeur */
-                    flex-direction: column !important;  /* Met la recherche au-dessus des boutons */
-                    gap: 20px !important;                /* Espace entre la recherche et les boutons */
+                    width: 100% !important;
+                    /* AJOUT : Aligne la barre tout à gauche */
+                    margin-left: 0 !important; 
+                    flex-direction: column !important;
+                    gap: 8px !important;
                 }
 
                 /* Le groupe de boutons en bas de la barre d'outils */
                 .toolbar div:last-child {
-                    display: grid !important;           /* Active le mode grille */
-                    grid-template-columns: 1fr 1fr;     /* Crée 2 colonnes égales (boutons côte à côte) */
-                    gap: 8px;                           /* Espace entre les boutons */
+                    display: grid !important;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 8px;
                 }
             }
         </style>
