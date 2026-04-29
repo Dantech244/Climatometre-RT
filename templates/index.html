@@ -366,83 +366,87 @@
             2. VERSION MOBILE (Écrans petits)
             ============================================================ */
             @media screen and (max-width: 980px) {
-                /* 1. Reset Cadrage : On empêche tout débordement à droite */
+                /* 1. On force la page à rester calée à gauche */
                 html, body {
                     margin: 0 !important;
                     padding: 0 !important;
                     width: 100% !important;
                     overflow-x: hidden !important;
-                    overflow-y: auto !important;
+                    background-color: #000 !important; /* Pour éviter les bandes grises sur les côtés */
                 }
 
                 .conteneur {
-                    display: flex !important;
-                    flex-direction: column !important; /* TOUT l'un sous l'autre */
+                    display: block !important; /* On empile tout proprement */
                     width: 100% !important;
                     padding: 10px !important;
+                    margin: 0 !important;
                     box-sizing: border-box !important;
-                    height: auto !important;
                 }
 
-                /* 2. Liste du haut : Compacte */
+                /* 2. FIX Liste du haut : On annule la superposition */
                 .left-panel {
+                    position: relative !important; /* Elle ne flotte plus au-dessus des autres */
                     width: 100% !important;
-                    position: relative !important;
-                    height: auto !important;
-                    margin-bottom: 15px !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    margin-bottom: 20px !important;
+                    z-index: 10;
                 }
 
                 .left-scroll {
-                    max-height: 150px !important; /* Encore plus compact */
+                    max-height: 180px !important;
                 }
 
-                /* 3. Zone Carte et Titre */
+                /* 3. FIX Cadrage Carte et Titre : On force le "tout à gauche" */
                 .carte {
                     width: 100% !important;
-                    margin: 0 !important;
-                    display: block !important;
+                    margin-left: 0 !important; /* On supprime le décalage de l'ordi */
+                    left: 0 !important;
+                    position: relative !important;
                 }
 
                 #map {
-                    height: 300px !important; /* Taille de carte équilibrée */
+                    height: 320px !important;
                     width: 100% !important;
-                    border-radius: 12px !important;
+                    margin: 0 !important;
                 }
 
-                /* 4. LA FICHE INFO (Réduction de taille) */
+                /* 4. FIX Fiche Info : On la réduit et on la centre */
                 .layout {
                     display: flex !important;
-                    flex-direction: column !important; /* Force le passage en dessous */
+                    flex-direction: column !important;
                     width: 100% !important;
                     margin: 0 !important;
                 }
 
                 .right-card {
-                    width: 95% !important; /* Un peu moins large pour respirer */
+                    width: 100% !important;
                     max-width: 100% !important;
-                    margin: 15px auto !important; /* Centré avec de l'espace en haut */
-                    padding: 12px !important; /* Padding réduit pour que le rectangle soit plus petit */
+                    margin: 20px 0 !important;
+                    padding: 15px !important;
+                    left: 0 !important;
+                    position: relative !important;
                     background: #1a1a1a !important;
-                    border-radius: 12px !important;
                     box-sizing: border-box !important;
-                    height: auto !important; /* Elle s'adapte au texte, ne prend pas de place vide */
+                    border: 1px solid #333; /* Un petit contour pour la structure */
                 }
 
-                /* On réduit la taille des textes dans la fiche pour gagner de la place */
-                .right-card h2 { font-size: 1.1rem !important; margin-bottom: 5px !important; }
-                .right-card p { font-size: 0.85rem !important; margin: 3px 0 !important; }
+                /* On réduit encore un peu les textes pour que ce soit compact */
+                .right-card h2 { font-size: 1.1rem !important; }
+                .right-card p { font-size: 0.8rem !important; margin: 2px 0 !important; }
 
-                /* 5. Boutons de la toolbar */
+                /* 5. Boutons : On s'assure qu'ils ne débordent pas à droite */
                 .toolbar {
                     width: 100% !important;
-                    flex-direction: column !important;
-                    gap: 8px !important;
+                    left: 0 !important;
+                    margin-left: 0 !important;
                 }
 
                 .toolbar div:last-child {
                     display: grid !important;
-                    grid-template-columns: 1fr 1fr;
+                    grid-template-columns: 1fr 1fr; /* 2 colonnes */
                     gap: 8px;
+                    width: 100%;
                 }
             }
         </style>
