@@ -561,6 +561,34 @@ def supprimer(id):
         conn.close()
     return redirect(url_for('index'))
 
+@app.route('/get_historique/<int:etudiant_id>')
+def get_historique(etudiant_id):
+    try:
+        # Connexion à ta base de données que je vois dans ton arborescence
+        conn = sqlite3.connect('climatometre.db')
+        cursor = conn.cursor()
+        
+        # On récupère les 5 dernières températures pour cet étudiant
+        # Note : vérifie bien que ta table s'appelle 'historique' et ta colonne 'etudiant_id'
+        query = """
+            SELECT temperature, timestamp 
+            FROM historique 
+            WHERE etudiant_id = ? 
+            ORDER BY timestamp DESC 
+            LIMIT 5
+        """
+        cursor.execute(query, (etudiant_id,))
+        rows = cursor.fetchall()
+        conn.close()
+
+        # On transforme le résultat en liste de dictionnaires pour le JS
+        historique = [{"temp": r[0], "heure": r[1]} for r in rows]
+        
+        return jsonify(historique)
+    except Exception as e:
+        print(f"Erreur DB : {e}")
+        return jsonify([]), 500
+
 @app.route('/infos')
 def infos():
     # Si l'utilisateur n'est pas dans la session, on le dégage vers le login
